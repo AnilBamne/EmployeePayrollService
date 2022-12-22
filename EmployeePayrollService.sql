@@ -24,3 +24,4 @@ select * from EmployeePayroll where ID=2;
 Alter Table EmployeePayroll add Gender char(1);
 Update EmployeePayroll set Gender='M';
 Insert Into EmployeePayroll values('Kalpana',29546,'2002-02-09','F'),('Snehal',32541,'2022-01-30','F'),('Kirthi',22587,'1999-11-01','F')
+Select * from EmployeePayroll
