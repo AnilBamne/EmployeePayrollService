@@ -38,3 +38,8 @@ select name,Salary,Gender from EmployeePayRoll where salary in (select Max(salar
 select name,Salary,Gender from EmployeePayRoll where salary in (select Min(salary) as totalsalary from employeepayroll group by gender)
 select avg(salary) as Totalsalary, gender from EmployeePayRoll group by gender
 select avg(salary) as Totalsalary from EmployeePayRoll;
+--- uc8 Adding Phone,Address and department ---
+alter table EmployeePayroll add Phone bigint
+alter table EmployeePayroll add Address varchar(250) Not Null default 'Banglore'
+alter table EmployeePayroll add Department varchar(200) 
+
