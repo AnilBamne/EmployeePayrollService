@@ -49,6 +49,9 @@ select * from EmployeePayroll
 Exec sp_rename 'EmployeePayroll.Salary','BasicPay','COLUMN';
 alter table EmployeePayroll add Deductions float,TaxablePay float,IncomeTax float,NetPay float;
 
+--- uc10 make terrisa as part of both Sales and marketing department ---
+Insert Into EmployeePayroll values('Terissa',29546,'2001-02-03','F',783424,'Banglore','Sales',546,29000,2300,26700),('Terissa',29546,'2001-02-03','F',783424,'Banglore','Marketing',546,29000,2300,26700)
+
 
 
 
