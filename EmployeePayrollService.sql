@@ -53,5 +53,47 @@ alter table EmployeePayroll add Deductions float,TaxablePay float,IncomeTax floa
 Insert Into EmployeePayroll values('Terissa',29546,'2001-02-03','F',783424,'Banglore','Sales',546,29000,2300,26700),('Terissa',29546,'2001-02-03','F',783424,'Banglore','Marketing',546,29000,2300,26700)
 
 
+--- uc11 Implementing ER Diagram ---
+--- creating a new database ---
+CREATE DATABASE Payroll_Service2
+USE Payroll_Service2
+
+--CompanyTable--
+Create Table Company
+(
+CompanyId int primary key identity(1,1),
+CompanyName varchar(255)
+)
+Insert Into Company Values('TCS')
+Insert Into Company Values('Wipro')
+Insert Into Company Values('Infosys')
+select * from Company
+
+--EmployeeTable--
+Create Table Employee
+(
+EmployeeId int primary key identity(101,1),
+CompanyId int references Company(CompanyId),
+EmployeeName varchar(255),
+Gender char(1),
+PhoneNo bigint,
+EmployeeAddress varchar(255),
+StartDate DATE,
+)
+Insert Into Employee values(1,'Oggy','M',987654321,'Delhi','2021/12/08')
+Insert Into Employee values(2,'Terrisa','F',123456789,'Noida','2021/08/12')
+Insert Into Employee values(3,'Jack','M',741852963,'Banglore','2021/03/10')
+select * from Employee
+
+--DepartmentTable--
+Create Table Department
+(
+DeptId int primary key identity(1001,1),
+DeptName varchar(255)
+)
+Insert Into Department values('Sales')
+Insert Into Department values('HR')
+Insert Into Department values('Finance')
+select * from Department
 
 
