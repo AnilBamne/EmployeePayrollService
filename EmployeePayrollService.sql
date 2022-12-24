@@ -96,4 +96,61 @@ Insert Into Department values('HR')
 Insert Into Department values('Finance')
 select * from Department
 
+--PayrollTable--
+Create Table Payroll
+(
+EmployeeId int references Employee(EmployeeId),
+BasicPay float,
+Deductions float,
+TaxablePay float,
+IncomeTax float,
+NetPay float,
+)
+Insert Into Payroll values(101,100,10,120,10,1000)
+Insert Into Payroll values(102,200,20,220,20,2000)
+Insert Into Payroll values(103,300,30,320,30,3000)
+select * from Payroll
 
+--ThirdTableFromEmployeeAndDepartment--
+Create Table EmployeeDepartment
+(
+EmployeeId int references Employee(EmployeeId),
+DeptId int references Department(DeptId),
+)
+Insert Into EmployeeDepartment values(101,1001)
+Insert Into EmployeeDepartment values(102,1002)
+Insert Into EmployeeDepartment values(103,1003)
+select * from EmployeeDepartment
+
+select CompanyName,EmployeeName,Gender,PhoneNo,EmployeeAddress,StartDate,DeptName,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay 
+from Company
+INNER Join Employee ON Company.CompanyId=Employee.CompanyId
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId
+INNER Join EmployeeDepartment ON EmployeeDepartment.EmployeeId=Employee.EmployeeId
+INNER Join Department ON Department.DeptId=EmployeeDepartment.DeptId
+
+--- UC12 Ensure all retrievequeries done especially in UC4, UC5 and UC7 are working with new table structure ---
+--UC4_Redo--
+select * from Company
+INNER Join Employee ON Company.CompanyId=Employee.CompanyId
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId
+INNER Join EmployeeDepartment ON EmployeeDepartment.EmployeeId=Employee.EmployeeId
+INNER Join Department ON Department.DeptId=EmployeeDepartment.DeptId
+
+--UC5_Redo--
+SELECT CompanyName,EmployeeName,Gender,PhoneNo,EmployeeAddress,StartDate,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay 
+From Company
+INNER Join Employee ON Company.CompanyId=Employee.CompanyId AND StartDate BETWEEN CAST('2019/01/24' AS DATE) AND GETDATE()
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId
+
+--UC7_Redo--
+SELECT SUM(BasicPay) From Employee
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId GROUP BY Gender
+SELECT AVG(BasicPay) From Employee
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId GROUP BY Gender
+SELECT MIN(BasicPay) From Employee
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId GROUP BY Gender
+SELECT MAX(BasicPay) From Employee
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId GROUP BY Gender
+SELECT Count(BasicPay) From Employee
+INNER Join Payroll ON Payroll.EmployeeId=Employee.EmployeeId GROUP BY Gender
